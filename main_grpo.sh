@@ -1,5 +1,5 @@
 set -x
-MODEL_PATH=xxx
+MODEL_PATH=Qwen/Qwen2.5-1.5B-Instruct
 export VLLM_ATTENTION_BACKEND=XFORMERS
 python3 -m verl.trainer.main_ppo \
     algorithm.adv_estimator=grpo \
