@@ -19,7 +19,7 @@ The input is a parquet file that contains N generated sequences and (optional) t
 
 import hydra
 from verl.utils.fs import copy_local_path_from_hdfs
-from verl.utils.reward_score import math, gsm8k, kk
+from verl.utils.reward_score import math, gsm8k, kk, kk_lithuanian
 import pandas as pd
 import numpy as np
 
@@ -27,6 +27,8 @@ import numpy as np
 def select_reward_fn(data_source):
     if data_source == 'lighteval/MATH':
         return math.compute_score
+    if 'kk_logic_lithuanian' in data_source:
+        return kk_lithuanian.compute_score
     if 'kk' in data_source:
         return kk.compute_score
     else:

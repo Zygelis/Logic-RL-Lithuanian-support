@@ -1,0 +1,28 @@
+{
+    "id": 1,
+    "difficulty": "lengvas",
+    "islanders": [
+        "Lukas",
+        "Daiva",
+        "Gintare"
+    ],
+    "statements": [
+        "Lukas sako: Daiva visada meluoja.",
+        "Gintare sako: Lukas yra melagis.",
+        "Daiva sako: Gintare nėra tokio pat tipo kaip aš.",
+        "Daiva sako: Gintare sako tiesą."
+    ],
+    "answer": {
+        "knaves": [
+            "Daiva",
+            "Gintare"
+        ],
+        "knights": [
+            "Lukas"
+        ]
+    },
+    "answer_text": "Melagiai buvo Daiva ir Gintare, o vienintelis riteris buvo Lukas.",
+    "reasoning_text": "Tiek riteriai, tiek melagiai sakys, kad jie nėra tokio pat tipo kaip melagis. Todėl kai Daiva sako, kad yra kitokio tipo nei Gintare, žinome, kad Gintare yra melagis.\nVisi salos gyventojai priešingo tipo žmogų vadins melagiu. Todėl kai Gintare sako, kad Lukas yra melagis, žinome, kad Lukas ir Gintare yra priešingų tipų. Kadangi Gintare yra melagis, tada Lukas yra riteris.\nVisi salos gyventojai savo tipo žmogų vadins riteriu. Todėl kai Daiva sako, kad Gintare yra riteris, žinome, kad Gintare ir Daiva yra to paties tipo. Kadangi Gintare yra melagis, tada Daiva yra melagis.\nTodėl žinome melagiai buvo Daiva ir Gintare, o vienintelis riteris buvo Lukas.",
+    "prompt": "Ypatingoje saloje gali gyventi tik dviejų tipų gyventojai: riteriai ir melagiai. Tarp jų gali būti, kad visi yra riteriai, visi yra melagiai, arba kai kurie yra riteriai, o kai kurie melagiai. Riteriai visada sako tiesą, o melagiai visada meluoja. Sutinkate 3 gyventojus: Lukas, Daiva ir Gintare. Lukas sako: Daiva visada meluoja. Gintare sako: Lukas yra melagis. Daiva sako: Gintare nėra tokio pat tipo kaip aš. Daiva sako: Gintare sako tiesą. Taigi kas yra riteris, o kas melagis?",
+    "system_prompt": "Tu esi pagalbinis atsistentas. Asistentas pirmiausia atlieka užduočiai reikalingą mąstymo procesą,\nir tik tada pateikia vartotojui atsakymą. Mąstymo procesas ir atsakymas yra įrašomi\natitinkamai tarp žymių <think> </think> ir <answer> </answer>, t. y. <think> mąstymo\nprocesas čia </think><answer> atsakymas čia </answer>. Dabar vartotojas prašo tave išspręsti\nloginio mąstymo užduotį. Po apmąstymų, kai pagaliau prieisi prie išvados, aiškiai nurodyk\nkiekvieno personažo tapatybę tarp <answer> </answer> žymių. Pavyzdžiui <answer> (1) ... yra\nriteris, (2) ... </answer>."
+}
