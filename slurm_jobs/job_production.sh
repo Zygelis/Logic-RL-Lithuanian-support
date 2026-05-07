@@ -2,7 +2,7 @@
 #SBATCH -p gpu
 #SBATCH --gres=gpu:2
 #SBATCH --cpus-per-task=8
-#SBATCH --time=04:00:00
+#SBATCH --time=02:00:00
 #SBATCH -n1
 #SBATCH --job-name=grpo-2gpu-1.5B
 #SBATCH --output=grpo_2gpu_%j.out

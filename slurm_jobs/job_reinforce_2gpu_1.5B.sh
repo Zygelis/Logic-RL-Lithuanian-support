@@ -2,12 +2,10 @@
 #SBATCH -p gpu
 #SBATCH --gres=gpu:2
 #SBATCH --cpus-per-task=8
-#SBATCH --time=04:00:00
+#SBATCH --time=02:00:00
 #SBATCH -n1
 #SBATCH --job-name=reinforce-2gpu-1.5B
 #SBATCH --output=reinforce_2gpu_%j.out
-
-exec > >(tee -a train_reinforce_2gpu.log) 2>&1
 
 cd /scratch/lustre/home/zygi9184/Logic-RL-Lithuanian-support
 source venv/bin/activate

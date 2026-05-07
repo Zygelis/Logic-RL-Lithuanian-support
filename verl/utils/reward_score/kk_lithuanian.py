@@ -90,7 +90,7 @@ def extract_answer_json(solution_str: str) -> Optional[Dict]:
     # Find <answer> tags
     match = re.search(r'<answer>(.*?)</answer>', solution_str, re.DOTALL | re.IGNORECASE)
     if not match:
-        print("[Error] Nerasti atsakymo žymės <answer>")
+        print("[Error] Answers tags not found in response.")
         return None
     
     answer_text = match.group(1).strip()
@@ -101,14 +101,14 @@ def extract_answer_json(solution_str: str) -> Optional[Dict]:
         # Normalize to standard format
         normalized = normalize_answer(result)
         if normalized:
-            print(f"✓ JSON išanalizuotas sėkmingai: {normalized}")
+            print(f"✓ JSON parsed correctly: {normalized}")
             return normalized
         else:
-            print(f"[Error] JSON neturinys neatitinka jokio žinomo formato: {result}")
+            print(f"[Error] JSON content does not match any known format: {result}")
             return None
     except json.JSONDecodeError as e:
-        print(f"[Error] JSON išanalizavimo klaida: {e}")
-        print(f"  Bandytas tekstas: {answer_text[:100]}...")
+        print(f"[Error] JSON parsing error: {e}")
+        print(f"  Attempted text: {answer_text[:100]}...")
         return None
 
 
@@ -127,7 +127,7 @@ def validate_structure(solution_str: str) -> bool:
     has_answer_close = '</answer>' in solution_str
     
     if not (has_think_open and has_think_close and has_answer_open and has_answer_close):
-        print("[Formato klaida] Trūksta reikalingų žymių (<think>, </think>, <answer>, </answer>)")
+        print("[Format error] Missing required tags. Ensure response includes <think>...</think><answer>...</answer>")
         return False
     
     # Check order
@@ -137,10 +137,10 @@ def validate_structure(solution_str: str) -> bool:
     answer_close_pos = solution_str.find('</answer>')
     
     if not (think_open_pos < think_close_pos < answer_open_pos < answer_close_pos):
-        print("[Formato klaida] Netinkama žymių tvarka")
+        print("[Format error] Incorrect tag order")
         return False
     
-    print("✓ Struktūra validna: <think>...</think><answer>...</answer>")
+    print("✓ Structure valid: <think>...</think><answer>...</answer>")
     return True
 
 
@@ -166,20 +166,20 @@ def compute_score(solution_str: str,
         Total score
     """
     print("\n" + "="*80)
-    print(" Vertinimas ".center(80, '='))
+    print(" Evaluation ".center(80, '='))
     
     # Normalize ground truth (handle both Lithuanian and English keys)
     gt_riteriai = set(ground_truth.get('riteriai', ground_truth.get('knights', [])))
     gt_melagiai = set(ground_truth.get('melagiai', ground_truth.get('knaves', [])))
     
-    print(f"\n[Pagrindinė tiesa]")
+    print(f"\n[Ground Truth]")
     print(f"  Riteriai: {list(gt_riteriai)}")
     print(f"  Melagiai: {list(gt_melagiai)}")
     
     # Validate structure
     format_valid = validate_structure(solution_str)
     format_score = format_reward if format_valid else -abs(format_reward)
-    print(f"  Formato taškai: {format_score}")
+    print(f"  Format points: {format_score}")
     
     # Extract and parse JSON
     answer_score = 0
@@ -189,14 +189,14 @@ def compute_score(solution_str: str,
             pred_riteriai = set(parsed.get('riteriai', []))
             pred_melagiai = set(parsed.get('melagiai', []))
             
-            print(f"\n[Modelio atsakymas]")
+            print(f"\n[Model Prediction]")
             print(f"  Riteriai: {list(pred_riteriai)}")
             print(f"  Melagiai: {list(pred_melagiai)}")
             
             # Compare
             if pred_riteriai == gt_riteriai and pred_melagiai == gt_melagiai:
                 answer_score = answer_reward
-                print(f"  ✓ PILNAS SUTAPIMAS!")
+                print(f"  ✓ FULL MATCH!")
             else:
                 # Check partial match
                 riteriai_correct = len(pred_riteriai & gt_riteriai) == len(gt_riteriai) if gt_riteriai else True
@@ -204,24 +204,25 @@ def compute_score(solution_str: str,
                 
                 if riteriai_correct or melagiai_correct:
                     answer_score = -1.5
-                    print(f"  ⚠ Dalinis sutapimas")
+                    print(f"  ⚠ PARTIAL MATCH: Riteriai correct: {riteriai_correct}, Melagiai correct: {melagiai_correct}")
                 else:
                     answer_score = -2.0
-                    print(f"  ✗ NEATITIKIMAS")
+                    print(f"  ✗ NO MATCH")
         else:
             answer_score = -2.0
-            print(f"\n  ✗ Nepavyko išanalizuoti JSON")
+            print(f"\n  ✗ Failed to parse JSON")
+            print(f"  Response: {solution_str}")
     else:
         answer_score = -2.0
-        print(f"\n  ✗ Praleista dėl formato klaidų")
+        print(f"\n  ✗ Failed due to format errors, skipping answer evaluation")
     
     total_score = format_score + answer_score
     
     print("\n" + "-"*80)
-    print(f" Rezultatas ".center(80, '-'))
-    print(f"  Formatas: {format_score}")
-    print(f"  Turinys: {answer_score}")
-    print(f"  Iš viso: {total_score}")
+    print(f" Result ".center(80, '-'))
+    print(f"  Format: {format_score}")
+    print(f"  Content: {answer_score}")
+    print(f"  Total: {total_score}")
     print("="*80 + "\n")
     
     return total_score
