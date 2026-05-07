@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -xe
 
+export PYTHONUNBUFFERED=1
 export VLLM_ATTENTION_BACKEND=XFORMERS
 
 ARGS=""
@@ -12,8 +13,7 @@ ARGS+=" data.val_batch_size=2"
 ARGS+=" data.max_prompt_length=512"
 ARGS+=" data.max_response_length=256"
 ARGS+=" actor_rollout_ref.model.path=Qwen/Qwen2.5-1.5B-Instruct"
-ARGS+=" +actor_rollout_ref.model.override_config.torch_dtype=bfloat16"
-ARGS+=" +actor_rollout_ref.model.override_config.device_map=auto"
+ARGS+=" +actor_rollout_ref.model.override_config.torch_dtype=float16"
 ARGS+=" +actor_rollout_ref.model.override_config.low_cpu_mem_usage=true"
 ARGS+=" +actor_rollout_ref.model.override_config.trust_remote_code=true"
 ARGS+=" actor_rollout_ref.actor.optim.lr=3e-07"
