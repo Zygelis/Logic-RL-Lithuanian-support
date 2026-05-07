@@ -12,14 +12,12 @@
 # Production GRPO training on 2 V100 GPUs
 # Expected wall-clock: 1.5-3 hours depending on data size
 
-cd "$(dirname "$0")/.."
-
-export PYTHONUNBUFFERED=1
-export VLLM_ATTENTION_BACKEND=XFORMERS
-export PYTORCH_CUDA_ALLOC_CONF="expandable_segments:True"
+cd /scratch/lustre/home/zygi9184/Logic-RL-Lithuanian-support
+source venv/bin/activate
 
 # Log GPU info
 nvidia-smi
 
 # Run production training
+chmod +x scripts/train_grpo_2gpu_production.sh
 bash scripts/train_grpo_2gpu_production.sh

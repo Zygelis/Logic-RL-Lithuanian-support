@@ -3,6 +3,7 @@ set -xe
 
 export PYTHONUNBUFFERED=1
 export VLLM_ATTENTION_BACKEND=XFORMERS
+export PYTORCH_CUDA_ALLOC_CONF="expandable_segments:True"
 
 # Production config for 2 V100 GPUs (balanced throughput, 1-4 hour training)
 # Increases batch size, response length, epochs, and uses full dataset vs _small
