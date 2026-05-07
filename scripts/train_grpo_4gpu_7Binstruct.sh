@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -xe
 
+export PYTHONUNBUFFERED=1
 export VLLM_ATTENTION_BACKEND=XFORMERS
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 
@@ -33,11 +34,12 @@ python3 -m verl.trainer.main_ppo \
     actor_rollout_ref.ref.fsdp_config.param_offload=True \
     algorithm.kl_ctrl.kl_coef=0.001 \
     trainer.critic_warmup=0 \
+    +trainer.val_before_train=False \
     trainer.logger=['console'] \
     trainer.project_name='verl_grpo_lithuanian' \
     trainer.experiment_name='qwen2_1p5b_grpo' \
     trainer.n_gpus_per_node=2 \
     trainer.nnodes=1 \
     trainer.save_freq=-1 \
-    trainer.test_freq=20 \
+    trainer.test_freq=-1 \
     trainer.total_epochs=1 $@
