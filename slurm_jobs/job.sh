@@ -10,7 +10,5 @@ cd /scratch/lustre/home/zygi9184/Logic-RL-Lithuanian-support
 source venv/bin/activate
 
 # Run your training (e.g., your shell script)
-python3 test.py
-
 chmod +x scripts/train_grpo_4gpu_7Binstruct.sh
 bash scripts/train_grpo_4gpu_7Binstruct.sh
