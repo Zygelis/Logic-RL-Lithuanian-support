@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH -p gpu
 #SBATCH --gres=gpu:2
-#SBATCH --cpus-per-task=16
+#SBATCH --cpus-per-task=8
 #SBATCH --time=04:00:00
 #SBATCH -n1
 #SBATCH --job-name=reinforce-2gpu-1.5B

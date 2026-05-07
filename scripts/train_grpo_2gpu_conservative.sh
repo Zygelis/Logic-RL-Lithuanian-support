@@ -3,7 +3,6 @@ set -xe
 
 export PYTHONUNBUFFERED=1
 export VLLM_ATTENTION_BACKEND=XFORMERS
-export RAY_DEDUP_LOGS=0
 
 # Conservative fallback config if production config causes OOM
 # Reduces batch size, response length slightly for stability
