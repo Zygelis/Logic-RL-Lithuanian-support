@@ -17,7 +17,7 @@ Note that we don't combine the main with ray_trainer as ray_trainer is used by o
 
 from verl import DataProto
 import torch
-from verl.utils.reward_score import gsm8k, math, multiply, countdown, kk
+from verl.utils.reward_score import gsm8k, math, multiply, countdown, kk, kk_lithuanian
 from verl.trainer.ppo.ray_trainer import RayPPOTrainer
 
 
@@ -30,6 +30,8 @@ def _select_rm_score_fn(data_source):
         return multiply.compute_score
     elif "countdown" in data_source:
         return countdown.compute_score
+    elif "kk_logic_lithuanian" in data_source:
+        return kk_lithuanian.compute_score
     elif "kk" in data_source:
         return kk.compute_score
     else:
@@ -94,13 +96,19 @@ class RewardManager():
 
 import ray
 import hydra
+import os
 
 
 @hydra.main(config_path='config', config_name='ppo_trainer', version_base=None)
 def main(config):
     if not ray.is_initialized():
         # this is for local ray cluster
-        ray.init(runtime_env={'env_vars': {'TOKENIZERS_PARALLELISM': 'true', 'NCCL_DEBUG': 'WARN'}})
+        slurm_cpus = int(os.environ.get('SLURM_CPUS_PER_TASK', os.cpu_count() or 1))
+        ray.init(num_cpus=slurm_cpus,
+                 runtime_env={'env_vars': {
+                     'TOKENIZERS_PARALLELISM': 'true',
+                     'NCCL_DEBUG': 'WARN'
+                 }})
 
     ray.get(main_task.remote(config))
 
