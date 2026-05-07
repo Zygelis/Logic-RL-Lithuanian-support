@@ -5,7 +5,7 @@
 #SBATCH --time=02:00:00
 #SBATCH -n1
 #SBATCH --job-name=grpo-2gpu-1.5B
-#SBATCH --output=grpo_2gpu_%j.out
+#SBATCH --output=log_grpo_2gpu_%j.out
 
 cd /scratch/lustre/home/zygi9184/Logic-RL-Lithuanian-support
 source venv/bin/activate
