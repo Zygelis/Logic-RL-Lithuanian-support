@@ -16,7 +16,7 @@ def make_prefix(dp, template_type):
         "<think> samprotavimo procesas čia </think><answer> atsakymas čia </answer>. "
         "Dabar vartotojas prašo jūsų išspręsti loginės samprotavimo problemą. "
         "Pagalvojus, kai pagaliau padarote išvadą, aiškiai nurodykite kiekvieno personažo tapatybę <answer> </answer> žymėse "
-        "JSON formato pavidalu, pvz.: <answer>{\"knights\": [\"Lukas\"], \"knaves\": [\"Daiva\", \"Gintare\"]}</answer>."
+        "JSON formato pavidalu, pvz.: <answer>{\"riteriai\": [\"Lukas\"], \"melagiai\": [\"Daiva\", \"Gintare\"]}</answer>."
     )
     
     if template_type == 'base':
