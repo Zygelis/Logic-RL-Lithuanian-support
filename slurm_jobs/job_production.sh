@@ -4,8 +4,8 @@
 #SBATCH --cpus-per-task=8
 #SBATCH --time=04:00:00
 #SBATCH -n1
-#SBATCH --job-name=reinforce-2gpu-1.5B
-#SBATCH --output=reinforce_2gpu_%j.out
+#SBATCH --job-name=grpo-2gpu-1.5B
+#SBATCH --output=grpo_2gpu_%j.out
 
 cd /scratch/lustre/home/zygi9184/Logic-RL-Lithuanian-support
 source venv/bin/activate

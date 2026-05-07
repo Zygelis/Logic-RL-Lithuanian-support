@@ -18,8 +18,8 @@ ARGS+=" data.val_files=./data/kk/instruct/lithuanian/test.parquet"
 # Increase batch size from 2 to 8, val to 4
 ARGS+=" data.train_batch_size=8"
 ARGS+=" data.val_batch_size=4"
-ARGS+=" data.max_prompt_length=512"
-ARGS+=" data.max_response_length=256"
+ARGS+=" data.max_prompt_length=600"
+ARGS+=" data.max_response_length=512"
 
 # Model config - keep float16 (V100 requirement)
 ARGS+=" actor_rollout_ref.model.path=Qwen/Qwen2.5-1.5B-Instruct"
@@ -49,8 +49,8 @@ ARGS+=" actor_rollout_ref.rollout.tensor_model_parallel_size=2"
 ARGS+=" actor_rollout_ref.rollout.n=1"
 ARGS+=" actor_rollout_ref.rollout.max_num_seqs=8"
 ARGS+=" actor_rollout_ref.rollout.max_num_batched_tokens=4096"
-ARGS+=" actor_rollout_ref.rollout.prompt_length=512"
-ARGS+=" actor_rollout_ref.rollout.response_length=128"
+ARGS+=" actor_rollout_ref.rollout.prompt_length=600"
+ARGS+=" actor_rollout_ref.rollout.response_length=512"
 ARGS+=" actor_rollout_ref.rollout.dtype=float16"
 
 # Training config - 2-3 epochs, enable checkpointing
