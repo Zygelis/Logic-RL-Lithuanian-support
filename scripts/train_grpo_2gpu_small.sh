@@ -3,6 +3,10 @@ set -xe
 
 export PYTHONUNBUFFERED=1
 export VLLM_ATTENTION_BACKEND=XFORMERS
+export RAY_DEDUP_LOGS=0
+export RAY_LOG_TO_STDERR=1
+export RAY_BACKEND_LOG_LEVEL=debug
+export HYDRA_FULL_ERROR=1
 
 ARGS=""
 ARGS+=" algorithm.adv_estimator=grpo"

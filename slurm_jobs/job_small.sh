@@ -6,6 +6,8 @@
 #SBATCH --job-name=logic-train
 #SBATCH --output=slurm-train-%j.out
 
+exec > >(tee -a train.log) 2>&1
+
 cd /scratch/lustre/home/zygi9184/Logic-RL-Lithuanian-support
 source venv/bin/activate
 
