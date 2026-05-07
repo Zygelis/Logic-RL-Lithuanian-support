@@ -50,7 +50,13 @@ def logprobs_from_logits(logits, labels):
     """
     See: https://github.com/pytorch/pytorch/issues/563#issuecomment-330103591
     """
-    if FLAH_ATTN_CROSS_ENTROPY_LOSS_AVAILABLE:
+    use_flash_ce = FLAH_ATTN_CROSS_ENTROPY_LOSS_AVAILABLE
+    if use_flash_ce and logits.is_cuda:
+        # Flash-attn Triton CE can emit bf16 kernels that require sm80+.
+        # Force safe fallback on older GPUs such as V100 (sm70).
+        use_flash_ce = torch.cuda.get_device_capability(logits.device)[0] >= 8
+
+    if use_flash_ce:
         batch_dim = logits.shape[:-1]
         last_dim = logits.shape[-1]
         logits = logits.reshape(-1, last_dim)
