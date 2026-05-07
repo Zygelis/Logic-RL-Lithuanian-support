@@ -3,10 +3,6 @@ set -xe
 
 export PYTHONUNBUFFERED=1
 export VLLM_ATTENTION_BACKEND=XFORMERS
-export RAY_DEDUP_LOGS=0
-export RAY_LOG_TO_STDERR=1
-export RAY_BACKEND_LOG_LEVEL=debug
-export HYDRA_FULL_ERROR=1
 
 ARGS=""
 ARGS+=" algorithm.adv_estimator=grpo"
@@ -42,6 +38,7 @@ ARGS+=" actor_rollout_ref.rollout.max_num_seqs=4"
 ARGS+=" actor_rollout_ref.rollout.max_num_batched_tokens=2048"
 ARGS+=" actor_rollout_ref.rollout.prompt_length=512"
 ARGS+=" actor_rollout_ref.rollout.response_length=64"
+ARGS+=" actor_rollout_ref.rollout.dtype=float16"
 
 # Reference model offloaded
 ARGS+=" ++actor_rollout_ref.ref.fsdp_config.param_offload=true"
