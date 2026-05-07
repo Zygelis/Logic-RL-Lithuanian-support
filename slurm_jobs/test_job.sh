@@ -10,4 +10,4 @@ cd /scratch/lustre/home/zygi9184/Logic-RL-Lithuanian-support
 source venv/bin/activate
 
 # Run your training (e.g., your shell script)
-python3 test.py
+python3 test_qwen25_lithuanian_compat.py

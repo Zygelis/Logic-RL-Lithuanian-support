@@ -12,7 +12,7 @@ python3 -m verl.trainer.main_ppo \
     data.val_batch_size=4 \
     data.max_prompt_length=600 \
     data.max_response_length=1024 \
-    actor_rollout_ref.model.path=Qwen/Qwen2.5-0.5B-Instruct \
+    actor_rollout_ref.model.path=Qwen/Qwen2.5-1.5B-Instruct \
     actor_rollout_ref.actor.optim.lr=1e-6 \
     actor_rollout_ref.model.use_remove_padding=True \
     actor_rollout_ref.actor.ppo_mini_batch_size=64 \
@@ -35,7 +35,7 @@ python3 -m verl.trainer.main_ppo \
     trainer.critic_warmup=0 \
     trainer.logger=['console'] \
     trainer.project_name='verl_grpo_lithuanian' \
-    trainer.experiment_name='qwen2_0p5b_grpo' \
+    trainer.experiment_name='qwen2_1p5b_grpo' \
     trainer.n_gpus_per_node=2 \
     trainer.nnodes=1 \
     trainer.save_freq=-1 \
