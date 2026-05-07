@@ -55,13 +55,12 @@ ARGS+=" actor_rollout_ref.rollout.dtype=float16"
 
 # Training config - 2-3 epochs, enable checkpointing
 ARGS+=" trainer.critic_warmup=0"
-ARGS+=" trainer.total_epochs=2"
+ARGS+=" trainer.total_epochs=1"
 ARGS+=" trainer.test_freq=1"
-ARGS+=" trainer.save_freq=500"
-ARGS+=" trainer.output_dir='./outputs/grpo_kk_production'"
+ARGS+=" trainer.save_freq=50"
 ARGS+=" trainer.logger=['console']"
 ARGS+=" trainer.project_name='grpo_kk_production'"
-ARGS+=" trainer.experiment_name='qwen2_1.5b_v100_2gpu_ep2'"
+ARGS+=" trainer.experiment_name='qwen2_1.5b_v100_2gpu_ep1'"
 ARGS+=" trainer.n_gpus_per_node=2"
 ARGS+=" trainer.nnodes=1"
 
