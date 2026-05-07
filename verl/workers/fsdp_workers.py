@@ -161,10 +161,16 @@ class ActorRolloutRefWorker(Worker):
 
         with init_context(), warnings.catch_warnings():
             warnings.simplefilter("ignore")
+            # FlashAttention2 requires Ampere+ GPUs (compute capability >= 8.0).
+            # Fall back to SDPA on older GPUs such as V100 (7.0).
+            if torch.cuda.get_device_capability()[0] >= 8:
+                attn_impl = 'flash_attention_2'
+            else:
+                attn_impl = 'sdpa'
             actor_module = AutoModelForCausalLM.from_pretrained(pretrained_model_name_or_path=local_path,
                                                                 torch_dtype=torch_dtype,
                                                                 config=actor_model_config,
-                                                                attn_implementation='flash_attention_2',
+                                                                attn_implementation=attn_impl,
                                                                 trust_remote_code=trust_remote_code)
             # some parameters may not in torch_dtype. TODO(zhangchi.usc1992) remove this after we switch to fsdp2
             actor_module.to(torch_dtype)
