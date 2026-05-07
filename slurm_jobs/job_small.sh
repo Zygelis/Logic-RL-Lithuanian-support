@@ -1,6 +1,7 @@
 #!/bin/bash
 #SBATCH -p gpu
 #SBATCH --gres=gpu:2             # Change to more GPUs if needed
+#SBATCH --cpus-per-task=8
 #SBATCH --time=1:00:00            # Adjust time limit as you expect
 #SBATCH -n1
 #SBATCH --job-name=logic-train
