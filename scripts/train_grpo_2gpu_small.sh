@@ -5,8 +5,8 @@ export VLLM_ATTENTION_BACKEND=XFORMERS
 
 ARGS=""
 ARGS+=" algorithm.adv_estimator=grpo"
-ARGS+=" data.train_files=./data/kk/instruct/lithuanian/train.parquet"
-ARGS+=" data.val_files=./data/kk/instruct/lithuanian/test.parquet"
+ARGS+=" data.train_files=./data/kk/instruct/lithuanian_small/train.parquet"
+ARGS+=" data.val_files=./data/kk/instruct/lithuanian_small/test.parquet"
 ARGS+=" data.train_batch_size=2"
 ARGS+=" data.val_batch_size=2"
 ARGS+=" data.max_prompt_length=512"
